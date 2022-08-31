@@ -6,6 +6,7 @@ import pytest
 from httpx import AsyncClient
 
 from app.schemas import UserDB
+from .conftest import default_user_email
 
 # All test coroutines in file will be treated as marked (async allowed).
 pytestmark = pytest.mark.asyncio
@@ -17,7 +18,7 @@ async def test_login_endpoints(client: AsyncClient, default_user: UserDB):
     access_token_res = await client.post(
         "/auth/jwt/login",
         data={
-            "username": "geralt@wiedzmin.pl",
+            "username": default_user_email,
             "password": "geralt",
         },
         headers={"Content-Type": "application/x-www-form-urlencoded"},

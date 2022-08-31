@@ -12,10 +12,12 @@ from app.models import Base
 from app.session import async_engine, async_session
 from app.tests import utils
 
-default_user_email = "geralt@wiedzmin.pl"
-default_user_hash = get_password_hash("geralt")
-superuser_user_email = "yennefer@wiedzmin.pl"
-superuser_user_hash = get_password_hash("yennefer")
+default_user_email = "geralt3@wiedzmin.pl"
+default_user_password = "geralt"
+default_user_hash = get_password_hash(default_user_password)
+superuser_user_email = "yennefer1@wiedzmin.pl"
+superuser_user_password = "yennefer"
+superuser_user_hash = get_password_hash(superuser_user_password)
 
 
 @pytest.fixture(scope="session")
@@ -61,3 +63,7 @@ async def superuser_user(session: AsyncSession):
     return await utils.create_db_user(
         superuser_user_email, superuser_user_hash, session, is_superuser=True
     )
+
+@pytest.fixture
+async def default_user_headers():
+    return {}

@@ -29,3 +29,6 @@ api_router.include_router(
     prefix="/users",
     tags=["users"],
 )
+
+from app.api.endpoints import pets
+api_router.include_router(pets.router, prefix="/pets", tags=["pets"])

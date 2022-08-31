@@ -22,24 +22,15 @@ Base = cast(Any, declarative_base())
 class UserTable(Base, SQLAlchemyBaseUserTable):
     pass
 
-
-# @PetBase.mapped
-# @dataclass
-# class Pet:
-#     __tablename__ = "pets"
-#     __sa_dataclass_metadata_key__ = "sa"
-
-#     id: int = field(init=False, metadata={"sa": Column(Integer, primary_key=True)})
-#     user_id: uuid.UUID = field(
-#         metadata={"sa": Column(ForeignKey("user_model.id", ondelete="CASCADE"))},
-#     )
-#     pet_name: str = field(
-#         metadata={"sa": Column(String(50), nullable=False)},
-#     )
-    
+   
 class Pet(Base):
     __tablename__ = "pets"
     
+    def __init__(self, user_id, pet_name) -> None:
+        super().__init__()
+        self.user_id = user_id
+        self.pet_name = pet_name
+        
     id = Column(Integer, primary_key=True)
     user_id = Column(ForeignKey("user.id", ondelete="CASCADE"))
     pet_name = Column(String(50), nullable=False)
